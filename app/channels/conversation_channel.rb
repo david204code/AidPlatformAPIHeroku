@@ -4,7 +4,10 @@ class ConversationChannel < ApplicationCable::Channel
     stream_for @conversation
   end
 
-  def unsubscribed(data)
+  def received(data)
     ConversationsChannel.broadcast_to(@conversation, {conversation: @conversation, users: @conversation.users, messages: @conversation.messages})
+  end
+
+  def unsubscribed
   end
 end

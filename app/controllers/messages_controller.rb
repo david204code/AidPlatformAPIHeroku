@@ -20,7 +20,7 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     conversation = Conversation.find(message_params[:conversation_id])
     if @message.save
-      ConversationsChannel.broadcast_to(conversation, {
+      ConversationChannel.broadcast_to(conversation, {
         conversation: ConversationSerializer.new(conversation)
       })
     else
