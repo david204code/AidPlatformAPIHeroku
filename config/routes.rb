@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  resources :messages
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/logged_in', to: 'sessions#is_logged_in?'
@@ -22,8 +21,10 @@ Rails.application.routes.draw do
   get '/activeAcceptedHelps', to: 'accepted_helps#activeAcceptedHelps'
   patch '/updateActive/:id', to: 'accepted_helps#updateActive'
   
+  resources :messages
   resources :conversations
-  
+  get '/conversation/:id', to: 'conversations#findAccepted'
+
 end
 
 
