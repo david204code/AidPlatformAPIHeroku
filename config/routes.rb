@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post 'rails/active_storage/direct_uploads', to: 'direct_uploads#create'
   
   resources :helps, params: :id
+  get '/publish', to: 'helps#publish'
   
 end
 

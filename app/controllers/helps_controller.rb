@@ -38,6 +38,12 @@ class HelpsController < ApplicationController
     }
   end
 
+  def publish
+    now = Time.now
+    @helps = Help.where(status: 'active') & Help.where(created_at: (now - 24.hours)..now) 
+    render json: @helps
+  end
+
   private
 
   def help_params
