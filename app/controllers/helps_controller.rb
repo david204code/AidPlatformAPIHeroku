@@ -38,7 +38,7 @@ class HelpsController < ApplicationController
 
   # current dashboard display
   def activeHelp
-    @helps = Help.where(user_id: current_user, status: ['active', 'ongoing'])
+    @helps = Help.where(user_id: params[:id], status: ['active', 'ongoing'])
     render json: @helps, :include => {
       :user => {
         

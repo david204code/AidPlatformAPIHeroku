@@ -46,7 +46,7 @@ class UsersController < ApplicationController
 
   def getLast
     user = User.last
-    render json: user.id
+    render json: user
   end
 
   private

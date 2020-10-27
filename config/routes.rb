@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  patch 'user/:id', to: 'users#update'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/logged_in', to: 'sessions#is_logged_in?'
@@ -10,7 +11,7 @@ Rails.application.routes.draw do
   resources :helps, params: :id
   get '/helpChat/:id', to: 'helps#helpChat'
   get '/publish', to: 'helps#publish'
-  get '/activeHelps', to: 'helps#activeHelp'
+  get '/activeHelps/:id', to: 'helps#activeHelp'
   get '/counter', to: 'helps#counter'
   get '/checkUser/:helpId/:id', to: 'helps#checkUser'
   patch '/updateStatus/:id', to: 'helps#updateStatus'
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
   resources :accepted_helps
   get 'accepted_help/:id', to: 'accepted_helps#show'
   get 'latest/accepted_help', to: 'accepted_helps#getLast'
-  get '/activeAcceptedHelps', to: 'accepted_helps#activeAcceptedHelps'
+  get '/activeAcceptedHelps/:id', to: 'accepted_helps#activeAcceptedHelps'
   get '/acceptedHelpCounter/:id', to: 'accepted_helps#acceptedHelpCounter'
   patch '/updateActive/:id', to: 'accepted_helps#updateActive'
   

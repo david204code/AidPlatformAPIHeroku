@@ -39,7 +39,7 @@ class AcceptedHelpsController < ApplicationController
   end
 
   def activeAcceptedHelps
-    @accepted_helps = AcceptedHelp.where(user_id: current_user, active: [true])
+    @accepted_helps = AcceptedHelp.where(user_id: params[:id], active: [true])
     render json: @accepted_helps, :include => {
       :user => {
 
