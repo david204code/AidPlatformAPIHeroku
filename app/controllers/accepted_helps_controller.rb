@@ -1,0 +1,2 @@
+class AcceptedHelpsController < ApplicationController
+end

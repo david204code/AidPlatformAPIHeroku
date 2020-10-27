@@ -1,0 +1,2 @@
+class AcceptedHelp < ApplicationRecord
+end
