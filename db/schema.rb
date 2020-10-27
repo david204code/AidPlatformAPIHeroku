@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_27_191209) do
+ActiveRecord::Schema.define(version: 2020_10_27_191528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2020_10_27_191209) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "accepted_help_id"
+    t.index ["accepted_help_id"], name: "index_conversations_on_accepted_help_id"
   end
 
   create_table "helps", force: :cascade do |t|
@@ -75,5 +77,6 @@ ActiveRecord::Schema.define(version: 2020_10_27_191209) do
   add_foreign_key "accepted_helps", "helps"
   add_foreign_key "accepted_helps", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "conversations", "accepted_helps"
   add_foreign_key "helps", "users"
 end
