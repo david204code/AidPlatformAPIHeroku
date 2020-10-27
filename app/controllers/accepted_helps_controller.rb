@@ -6,7 +6,7 @@ class AcceptedHelpsController < ApplicationController
 
   def create
     @accepted_help = AcceptedHelp.new(accepted_params.merge(user_id: session[:user_id]))
-
+    
     unless @accepted_help.save
       render json: @accepted_help.errors, status: :unprocessable_entity
     end
@@ -18,8 +18,24 @@ class AcceptedHelpsController < ApplicationController
   end
 
   def show
-    @accepted_helps ||= AcceptedHelp.find(params[:id])
-    render json: @accepted_helps
+    # @accepted_helps ||= AcceptedHelp.find(params[:id])
+    # render json: @accepted_helps
+    @accepted_helps = AcceptedHelp.find_by(id: params[:id])
+    render json: @accepted_helps, :include => {
+      :help => {
+        :include => {
+          :user => {
+                        
+          }
+        }
+      },
+      :user => {
+
+      },
+      :conversation => {
+        
+      }
+    }
   end
 
   def activeAcceptedHelps

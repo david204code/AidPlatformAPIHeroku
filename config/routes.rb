@@ -17,14 +17,16 @@ Rails.application.routes.draw do
   patch '/archiveHelp/:id', to: 'helps#archiveHelp'
   
   resources :accepted_helps
+  get 'accepted_help/:id', to: 'accepted_helps#show'
   get 'latest/accepted_help', to: 'accepted_helps#getLast'
   get '/activeAcceptedHelps', to: 'accepted_helps#activeAcceptedHelps'
+  get '/acceptedHelpCounter/:id', to: 'accepted_helps#acceptedHelpCounter'
   patch '/updateActive/:id', to: 'accepted_helps#updateActive'
   
   resources :messages
   resources :conversations
   get '/conversation/:id', to: 'conversations#findAccepted'
-
+  
 end
 
 

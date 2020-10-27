@@ -26,12 +26,12 @@ class HelpsController < ApplicationController
 
   def index
     @helps = Help.all
-    # render json: @helps
     render json: @helps.to_json( :methods => [:accepted_helps])
   end
 
   def publish
     now = Time.now
+    # @helps = Help.where(status: 'active')
     @helps = Help.where(status: 'active') & Help.where(created_at: (now - 24.hours)..now) 
     render json: @helps
   end
@@ -63,7 +63,6 @@ class HelpsController < ApplicationController
   def helpChat
     # @helps = Help.find_by user_id: current_user
     @helps = Help.where(user_id: current_user) && Help.find(params[:id])
-    # render json: @helps.to_json( :methods => [:accepted_helps, :conversations, :messages])
     render json: @helps, :include => {
       :user => {
       },
