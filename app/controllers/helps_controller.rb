@@ -26,6 +26,64 @@ class HelpsController < ApplicationController
 
   def index
     @helps = Help.all
+    # render json: @helps
+    render json: @helps.to_json( :methods => [:accepted_helps])
+  end
+
+  def publish
+    now = Time.now
+    @helps = Help.where(status: 'active') & Help.where(created_at: (now - 24.hours)..now) 
+    render json: @helps
+  end
+
+  # current dashboard display
+  def activeHelp
+    @helps = Help.where(user_id: current_user, status: ['active', 'ongoing'])
+    render json: @helps, :include => {
+      :user => {
+        
+      },
+      :accepted_helps => {
+        :include => {
+          :user => {
+            
+          }
+        }
+      },
+      :conversations => {
+
+      },
+      :messages => {
+
+      },
+    }
+  end
+
+  
+  def helpChat
+    # @helps = Help.find_by user_id: current_user
+    @helps = Help.where(user_id: current_user) && Help.find(params[:id])
+    # render json: @helps.to_json( :methods => [:accepted_helps, :conversations, :messages])
+    render json: @helps, :include => {
+      :user => {
+      },
+      :accepted_helps => {
+        :only => [:id, :user_id],
+        :include => {
+          :user => {
+            :only => [:id, :email,]
+          }
+        }
+      },
+      :conversations => {
+      },
+      :messages => {
+      },
+    }
+  end
+
+  def counter
+    @helps = Help.where(status: 'active').count
     render json: @helps
   end
 
@@ -35,13 +93,42 @@ class HelpsController < ApplicationController
       :user => {
 
       },
+      :accepted_helps => {
+        :include => {
+          :user => {
+
+          },
+        },
+      },
     }
   end
 
-  def publish
-    now = Time.now
-    @helps = Help.where(status: 'active') & Help.where(created_at: (now - 24.hours)..now) 
-    render json: @helps
+  # For same user cannot accepted same help twice
+  def checkUser
+    @help = AcceptedHelp.where(help_id: params[:helpId]).where(user_id: params[:id])
+    render json: @help, :include => {
+      :user => {
+
+      },
+    }
+  end
+
+  def updateStatus
+    @help = Help.find_by(id: params[:id])
+    @help.status = 'ongoing'
+    @help.save
+  end
+
+  def completeHelp
+    @help = Help.find_by(id: params[:id])
+    @help.status = 'completed'
+    @help.save
+  end
+
+  def archiveHelp
+    @help = Help.find_by(id: params[:id])
+    @help.status = 'incomplete'
+    @help.save
   end
 
   private
