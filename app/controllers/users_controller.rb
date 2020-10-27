@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+
   def index
     users = User.all
     render json: users
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
       }
     end
   end
-
+  
   def create
     user = User.create!(user_params)
     if user.save
@@ -43,11 +43,16 @@ class UsersController < ApplicationController
     # byebug
     render json: {user: user, governmentId_url: governmentId_url}
   end
-  
+
+  def getLast
+    user = User.last
+    render json: user.id
+  end
+
   private
-  
+
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
-  
+
 end
