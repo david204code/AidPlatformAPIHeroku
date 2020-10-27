@@ -7,10 +7,12 @@ class UsersController < ApplicationController
 
   def show
     user = User.find_by(id: params[:id])
+    governmentId = rails_blob_path(user.governmentId)
 
     if user
       render json: {
         user: user,
+        governmentId: governmentId
       }
     else
       render json: {
@@ -34,6 +36,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    user = User.find(params[:id])
+    user.update(governmentId: params[:governmentId])
+    governmentId_url = rails_blob_path(user.governmentId)
+    # byebug
+    render json: {user: user, governmentId_url: governmentId_url}
+  end
+  
   private
   
   def user_params
