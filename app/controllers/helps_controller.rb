@@ -5,7 +5,8 @@ class HelpsController < ApplicationController
   end
 
   def create   
-    @help = Help.new(help_params.merge(user_id: session[:user_id]))
+    # @help = Help.new(help_params.merge(user_id: session[:user_id]))
+    @help = Help.new(help_params)
     if @help.request_type == 'material-need'
       @help.color = "red"
     else
@@ -14,14 +15,14 @@ class HelpsController < ApplicationController
     unless @help.save
       render json: @help.errors, status: :unprocessable_entity
     end
-    respond_to do |format|
-      if @help.save
-        format.html { redirect_to @help, notice: 'Help was successfully created.' }
-      else
-        format.html { render :new }
-        format.json { render json: @help.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @help.save
+    #     format.html { redirect_to @help, notice: 'Help was successfully created.' }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @help.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   def index
@@ -139,7 +140,8 @@ class HelpsController < ApplicationController
       :request_type,
       :location_long,
       :location_lat,
-      :status
+      :status,
+      :user_id
     )
   end
 

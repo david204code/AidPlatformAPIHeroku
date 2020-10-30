@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  patch 'user/:id', to: 'users#update'
+  patch 'users/:id', to: 'users#update'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/logged_in', to: 'sessions#is_logged_in?'

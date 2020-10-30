@@ -5,7 +5,8 @@ class AcceptedHelpsController < ApplicationController
   end
 
   def create
-    @accepted_help = AcceptedHelp.new(accepted_params.merge(user_id: session[:user_id]))
+    # @accepted_help = AcceptedHelp.new(accepted_params.merge(user_id: session[:user_id]))
+    @accepted_help = AcceptedHelp.new(accepted_params)
     
     unless @accepted_help.save
       render json: @accepted_help.errors, status: :unprocessable_entity
