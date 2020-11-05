@@ -35,7 +35,7 @@ Rails.application.configure do
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'https://aidplatformapiheroku.herokuapp.com/cable'
   config.action_cable.url = 'https://aidplatformapiheroku.herokuapp.com/cable'
-  config.action_cable.allowed_request_origins = [ 'https://frontendaidplatformheroku.herokuapp.com/', /http:\/\/frontendaidplatformheroku.herokuapp.*/ ]
+  config.action_cable.allowed_request_origins = [ 'https://frontendaidplatformheroku.herokuapp.com/', /https:\/\/frontendaidplatformheroku.herokuapp.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
