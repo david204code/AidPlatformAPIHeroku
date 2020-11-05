@@ -7,4 +7,4 @@ test:
 production:
   adapter: redis
   url: "redis://:s5stH7FjInTRgPs4utTAtXOCDmi7AIF8@redis-12765.c228.us-central1-1.gce.cloud.redislabs.com:12765"
-  # channel_prefix: backEndAidPlatform_production
+  # channel_prefix: backEndAidPlatform_production1
