@@ -83,7 +83,8 @@ class HelpsController < ApplicationController
   end
 
   def counter
-    @helps = Help.where(status: 'active').count
+    now = Time.now
+    @helps = (Help.where(status: 'active') & Help.where(created_at: (now - 24.hours)..now)).count
     render json: @helps
   end
 
