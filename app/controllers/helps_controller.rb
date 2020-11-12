@@ -32,8 +32,7 @@ class HelpsController < ApplicationController
 
   def publish
     now = Time.now
-    # @helps = Help.where(status: 'active')
-    @helps = Help.where(status: 'active') & Help.where(created_at: (now - 24.hours)..now) 
+    @helps = Help.left_outer_joins(:accepted_helps).group('helps.id').having('count(help_id) < 5') & Help.where(status: 'active') & Help.where(created_at: (now - 24.hours)..now)
     render json: @helps
   end
 
