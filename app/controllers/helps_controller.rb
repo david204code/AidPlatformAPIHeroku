@@ -5,7 +5,6 @@ class HelpsController < ApplicationController
   end
 
   def create   
-    # @help = Help.new(help_params.merge(user_id: session[:user_id]))
     @help = Help.new(help_params)
     if @help.request_type == 'material-need'
       @help.color = "red"
@@ -15,14 +14,6 @@ class HelpsController < ApplicationController
     unless @help.save
       render json: @help.errors, status: :unprocessable_entity
     end
-    # respond_to do |format|
-    #   if @help.save
-    #     format.html { redirect_to @help, notice: 'Help was successfully created.' }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @help.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   def index
@@ -61,7 +52,6 @@ class HelpsController < ApplicationController
 
   
   def helpChat
-    # @helps = Help.find_by user_id: current_user
     @helps = Help.where(user_id: current_user) && Help.find(params[:id])
     render json: @helps, :include => {
       :user => {

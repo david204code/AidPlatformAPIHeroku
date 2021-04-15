@@ -5,7 +5,6 @@ class AcceptedHelpsController < ApplicationController
   end
 
   def create
-    # @accepted_help = AcceptedHelp.new(accepted_params.merge(user_id: session[:user_id]))
     @accepted_help = AcceptedHelp.new(accepted_params)
     
     unless @accepted_help.save
@@ -19,8 +18,6 @@ class AcceptedHelpsController < ApplicationController
   end
 
   def show
-    # @accepted_helps ||= AcceptedHelp.find(params[:id])
-    # render json: @accepted_helps
     @accepted_helps = AcceptedHelp.find_by(id: params[:id])
     render json: @accepted_helps, :include => {
       :help => {

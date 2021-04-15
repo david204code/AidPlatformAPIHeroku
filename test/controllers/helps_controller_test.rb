@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class HelpsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+
+  test "should get all Help" do
+    get '/helps'
+    assert_response :success
+  end
+
 end
